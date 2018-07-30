@@ -1,0 +1,13 @@
+name: data5u
+
+address:
+  - "http://www.data5u.com/free/index.shtml"
+  - "http://www.data5u.com/free/gngn/index.shtml"
+  - "http://www.data5u.com/free/gnpt/index.shtml"
+  - "http://www.data5u.com/free/gwgn/index.shtml"
+  - "http://www.data5u.com/free/gwpt/index.shtml"
+
+catch_script: true
+catch_options:
+  type: html
+  hash_element: ".wlist ul.l2"

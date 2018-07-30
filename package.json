@@ -15,14 +15,18 @@
     "lint:javascript": "eslint {lib,test}/**/*.js"
   },
   "keywords": [
-    "arylo"
+    "arylo",
+    "banks",
+    "uupers",
+    "proxy"
   ],
   "engines": {
     "node": ">=6"
   },
   "files": [
     "dist",
-    "lib"
+    "lib",
+    "banks"
   ],
   "author": "AryloYeung <arylo.open@gmail.com>",
   "repository": {
@@ -35,7 +39,11 @@
   "homepage": "https://github.com/Arylo/pullpoor-core#readme",
   "license": "MIT",
   "devDependencies": {
+    "@types/cheerio": "^0.22.8",
+    "@types/md5": "^2.1.32",
     "@types/node": "^10.1.2",
+    "@types/request-promise": "^4.1.42",
+    "@types/update-notifier": "^2.2.0",
     "ava": "^0.25.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
@@ -46,5 +54,15 @@
     "rimraf": "^2.6.2",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "find-up": "^3.0.0",
+    "md5": "^2.2.1",
+    "random-useragent": "^0.3.1",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "update-notifier": "^2.5.0",
+    "y-config": "^2.0.1"
   }
 }

@@ -1,0 +1,11 @@
+#
+# 注意，该代理在墙外
+#
+name: cn-proxy
+homepage: http://cn-proxy.com/
+
+address:
+  - http://cn-proxy.com/
+  - http://cn-proxy.com/archives/218
+  
+catch_script: true

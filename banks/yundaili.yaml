@@ -1,0 +1,9 @@
+name: yundaili
+
+address_script: true
+
+catch_script: true
+catch_options:
+  type: html
+  hash_element: "tbody tr"
+  
