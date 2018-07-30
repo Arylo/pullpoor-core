@@ -22,7 +22,7 @@ export const remoteVersion = () => {
 
 export const catchNotes = async (name?: string | string[]) => {
     const set = new Set<string>();
-    const names = name && typeof name === "string" ? [name] : name;
+    const names = name && typeof name === "string" ? [ name ] : name;
     const list = !names || names.length === 0 ? getList() : names;
     for (const bankname of list) {
         const notes = await startCatch(bankname);

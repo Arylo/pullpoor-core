@@ -1,6 +1,6 @@
 # pullpoor-core
 
-The project is generated in [`arylo-init`](https://www.npmjs.com/package/arylo-init)
+The Core for Pullpoor
 
 [![node][NPM_URL]][NPM_HREF]
 [![Travis][TRAVIS_URL]][TRAVIS_HREF]

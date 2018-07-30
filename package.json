@@ -1,7 +1,7 @@
 {
   "name": "pullpoor-core",
   "version": "1.0.0",
-  "description": "The project is generated in [`arylo-init`](https://www.npmjs.com/package/arylo-init)",
+  "description": "Pullpoor Core",
   "main": "dist/index.js",
   "types": "lib/index.ts",
   "scripts": {
@@ -9,7 +9,7 @@
     "tsc": "tsc --locale zh-cn --pretty",
     "build": "npm run tsc -- -P tsconfig.json",
     "pretest": "npm run clean && npm run tsc -- -P tsconfig.test.json",
-    "test": "ava dist/test",
+    "test": "ava dist/test/**/*.spec.js dist/test/**/*.e2e.js",
     "lint": "npm run lint:typescript && npm run lint:javascript",
     "lint:typescript": "tslint {lib,test}/**/*.ts",
     "lint:javascript": "eslint {lib,test}/**/*.js"

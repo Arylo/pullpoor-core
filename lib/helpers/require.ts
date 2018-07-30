@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
+import { scriptsPath } from "./constant";
 
 const scriptCache: { [path: string]: any } = { };
-const scriptsPath = path.resolve(__dirname, "../scripts");
 
 export const requireScript = (name: string) => {
     if (scriptCache[name]) {

@@ -42,6 +42,7 @@ export const parse = (filepath: PathLike) => {
     }
     if (bankObj.catch) {
         // TODO: 载入预构建方法
+        throw new Error();
     } else if (bankObj.catch_script) {
         let script: IBaseScript;
         if (typeof bankObj.catch_script === "string") {

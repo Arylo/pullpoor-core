@@ -1,0 +1,4 @@
+extends_file: parent
+
+address:
+  - "https://example.com"

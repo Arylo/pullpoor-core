@@ -3,12 +3,10 @@ import * as fs from "fs";
 import * as md5 from "md5";
 import * as path from "path";
 import { IYamlObject } from "../interfaces/yaml";
-import { rootPath } from "./constant";
+import { configsPath } from "./constant";
 import { getHTML } from "./net";
 import { parse } from "./parse";
 import { retryFnAsync } from "./retryFn";
-
-const configsPath = path.resolve(rootPath, "banks");
 
 const bankCache: { [name: string]: IYamlObject } = { };
 
