@@ -1,10 +1,7 @@
-skip: true
-
-address:
-  - "https://example.com"
+address_script: "complex.0"
 
 catch:
   - "list"
-
+  - 0
 catch_options:
   type: "json"

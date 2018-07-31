@@ -1,3 +1,5 @@
+extends_file: base/5min
+
 name: ip66
 
 address_script: true

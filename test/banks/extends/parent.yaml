@@ -2,3 +2,6 @@ base: true
 
 address:
   - "http://example.com"
+
+catch_options:
+  type: "html"

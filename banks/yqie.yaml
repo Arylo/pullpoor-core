@@ -1,3 +1,5 @@
+extends_file: base/5min
+
 name: yqie
 
 address_script: true

@@ -1,0 +1,9 @@
+address_script: "complex.1"
+
+catch:
+  - "list"
+  - 0
+  - arr
+  - set
+catch_options:
+  type: "json"

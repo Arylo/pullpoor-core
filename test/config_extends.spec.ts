@@ -8,6 +8,7 @@ test("Config Extends with Config file", (t) => {
     const obj = getBank("yaml");
     t.not(obj.address[0], "http://example.com");
     t.is(obj.address[0], "https://example.com");
+    t.is(obj.catch_options.type, "json");
 });
 
 test("Config Extends with Js file", (t) => {

@@ -1,6 +1,7 @@
 import { URL } from "url";
 
 import cheerio = require("cheerio");
+import dtss = require("dtss");
 import ua = require("random-useragent");
 import rp = require("request-promise");
 import { sleep } from "./sleep";
@@ -11,7 +12,7 @@ const getOptions = {
         "Connection": "keep-alive"
     },
     method: "GET",
-    timeout: 60 * 1000
+    timeout: dtss.m(1)
 };
 
 let isFirstHtml = true;

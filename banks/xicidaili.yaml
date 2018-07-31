@@ -1,3 +1,5 @@
+extends_file: base/5min
+
 name: xicidaili
 
 address_script: true

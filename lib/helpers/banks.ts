@@ -2,23 +2,23 @@ import * as cheerio from "cheerio";
 import * as fs from "fs";
 import * as md5 from "md5";
 import * as path from "path";
-import { IYamlObject } from "../interfaces/yaml";
-import { configsPath } from "./constant";
+import { addBankCache, hasCatchCache, isStartCatch, refreshCatchCache } from "./cache";
+import { configsPath, DEFAULT_EXPIREDAT } from "./constant";
 import { getHTML } from "./net";
 import { parse } from "./parse";
 import { retryFnAsync } from "./retryFn";
 
-const bankCache: { [name: string]: IYamlObject } = { };
-
 export const getBank = (name: string) => {
     const filepath = path.resolve(configsPath, `${name}.yaml`);
     if (!fs.existsSync(filepath)) {
-        throw new Error(); // TODO:
+        throw new Error("Non-exist Config File");
     }
     const obj = parse(filepath);
     obj.name = obj.name ? obj.name : name;
     obj.nickname = obj.nickname ? obj.nickname : name;
-    return bankCache[name] = obj;
+    obj.expiredAt = obj.expiredAt ? obj.expiredAt : DEFAULT_EXPIREDAT;
+    // TODO: 检查完整性
+    return addBankCache(name, obj);
 };
 
 export const getBanksList = () => {
@@ -32,10 +32,11 @@ export const getBanksList = () => {
         })
         .map((filename) => {
             return filename.replace(/\.yaml/, "");
+        })
+        .filter((name) => {
+            return !getBank(name).base;
         });
 };
-
-const cacheSet = new Set<string>();
 
 export const startCatch = async (name: string) => {
     const list: string[] = [ ];
@@ -45,6 +46,13 @@ export const startCatch = async (name: string) => {
         return list;
     }
 
+    // 未够时间刷新则跳过
+    if (!isStartCatch(name)) {
+        return list;
+    }
+
+    refreshCatchCache(name);
+
     const catchOptions = bank.catch_options;
     const isUseCache =
         catchOptions &&
@@ -52,9 +60,13 @@ export const startCatch = async (name: string) => {
         catchOptions.hash_element &&
         typeof catchOptions.hash_element === "string";
     let addresses: string[] = [];
-    await retryFnAsync(async () => {
-        addresses = await bank.address_funcion();
-    });
+    try {
+        await retryFnAsync(async () => {
+            addresses = await bank.address_function();
+        });
+    } catch (error) {
+        return list;
+    }
 
     for (const address of addresses) {
         let eleP: PromiseLike<Cheerio>;
@@ -72,14 +84,13 @@ export const startCatch = async (name: string) => {
                 content += cheerio(e).html().toString();
                 return content;
             }, ""));
-            if (cacheSet.has(md5sum)) {
+            if (hasCatchCache(name, md5sum)) {
                 continue;
             }
-            cacheSet.add(md5sum);
         }
         try {
             await retryFnAsync(async () => {
-                list.push(...await bank.catch_funcion(address, eleP));
+                list.push(...await bank.catch_function(address, eleP));
             });
         } catch (e) {
             continue;

@@ -5,6 +5,6 @@ test("Function version()", (t) => {
     t.is(typeof version(), "string");
 });
 
-test("Function remoteVersion()", (t) => {
-    t.is(typeof remoteVersion(), "string");
+test("Function remoteVersion()", async (t) => {
+    t.is(typeof await remoteVersion(), "string");
 });

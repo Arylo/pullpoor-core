@@ -10,7 +10,7 @@ test((t) => {
 
 test("Custom config path", (t) => {
     constant.setValue("configsPath", resolve(constant.rootPath, "test/banks/no_running"));
-    t.is(getBanksList().length, 2);
+    t.is(getBanksList().length, 1);
 });
 
 test("Custom config path with folder", (t) => {

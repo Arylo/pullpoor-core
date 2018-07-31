@@ -98,6 +98,17 @@ test("Always Fail", async (t) => {
     } catch (e) { }
 });
 
+test("Always Fail with async/await", async (t) => {
+    t.plan(retryCount);
+    try {
+        await retryFnAsync(async () => {
+            t.pass();
+            await Promise.reject();
+        });
+    // tslint:disable-next-line:no-empty
+    } catch (e) { }
+});
+
 test("Custom Fail count #0", async (t) => {
     t.plan(1);
     try {

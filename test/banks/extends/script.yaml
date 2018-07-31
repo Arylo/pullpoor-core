@@ -2,3 +2,9 @@ extends_file: parent
 
 address:
   - "https://example.com"
+
+catch:
+  - "list"
+
+catch_options:
+  type: "json"

@@ -1,10 +1,6 @@
-skip: true
-
-address:
-  - "https://example.com"
+address_script: "normal"
 
 catch:
   - "list"
-
 catch_options:
   type: "json"

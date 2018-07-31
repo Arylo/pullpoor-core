@@ -1,12 +1,7 @@
 import test from "ava";
 import { resolve } from "path";
-import { catchNotes } from "../lib";
-import * as constant from "../lib/helpers/constant";
-
-test.skip(async (t) => {
-    const list = await catchNotes();
-    t.true(Array.isArray(list));
-});
+import { catchNotes } from "../../lib";
+import * as constant from "../../lib/helpers/constant";
 
 test("skip", async (t) => {
     constant.setValue("configsPath", resolve(constant.rootPath, "test/banks/no_running"));

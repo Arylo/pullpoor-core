@@ -3,11 +3,11 @@ export interface IBaseGetAddressScript {
 }
 
 export interface IBaseCatchNotesScript {
-    catchNotes?: (address: string) => PromiseLike<any[]>;
+    catchNotes?: (address: string) => PromiseLike<string[]>;
 }
 
 export interface IBaseScript extends IBaseGetAddressScript, IBaseCatchNotesScript { }
 
 export interface IHttpCatch {
-    catchNotes: (address: string, elePromise: PromiseLike<Cheerio>) => PromiseLike<any[]>;
+    catchNotes: (address: string, elePromise: PromiseLike<Cheerio>) => PromiseLike<string[]>;
 }
