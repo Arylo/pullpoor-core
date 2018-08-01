@@ -1,7 +1,10 @@
 import test from "ava";
-import { catchNotes } from "../../lib";
+import * as lodash from "lodash";
+import { catchNotes, getBanksList } from "../../lib";
 
 test(async (t) => {
-    const list = await catchNotes();
-    t.true(Array.isArray(list));
+    const list = ["yqie", "yundaili"]
+        .concat(lodash.sampleSize(getBanksList(), 3));
+    const notes = await catchNotes(list);
+    t.true(Array.isArray(notes));
 });

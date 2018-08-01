@@ -1,0 +1,6 @@
+{
+    "exclude": [
+        "dist/lib/scripts/**/*.js",
+        "dist/test/**/*.js"
+    ]
+}

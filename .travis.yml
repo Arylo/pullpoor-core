@@ -28,4 +28,4 @@ deploy:
   api_key: "${NPM_TOKEN}"
   on:
     branch: master
-    node_js: "node"
+    node_js: "lts/*"

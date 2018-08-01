@@ -9,7 +9,7 @@
     "tsc": "tsc --locale zh-cn --pretty",
     "build": "npm run tsc -- -P tsconfig.json",
     "pretest": "npm run clean && npm run tsc -- -P tsconfig.test.json",
-    "test": "ava dist/test/**/*.spec.js dist/test/**/*.e2e.js",
+    "test": "ava",
     "lint": "npm run lint:typescript && npm run lint:javascript",
     "lint:typescript": "tslint {lib,test}/**/*.ts",
     "lint:javascript": "eslint {lib,test}/**/*.js"
@@ -43,10 +43,12 @@
     "@types/cheerio": "^0.22.8",
     "@types/express": "^4.16.0",
     "@types/find-up": "^2.1.1",
+    "@types/lodash": "^4.14.115",
     "@types/md5": "^2.1.32",
     "@types/node": "^10.1.2",
     "@types/request": "^2.47.1",
     "@types/request-promise": "^4.1.42",
+    "@types/source-map-support": "^0.4.1",
     "ava": "^0.25.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
@@ -55,7 +57,9 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "express": "^4.16.3",
+    "lodash": "^4.17.10",
     "rimraf": "^2.6.2",
+    "source-map-support": "^0.5.6",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   },
@@ -68,5 +72,13 @@
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
     "y-config": "^2.0.1"
+  },
+  "ava": {
+    "files": [
+      "dist/test/**/*.{spec,e2e}.js"
+    ],
+    "source": [
+      "{lib,test}/**/*.ts"
+    ]
   }
 }
