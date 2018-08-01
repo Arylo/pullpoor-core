@@ -1,4 +1,5 @@
 import * as dtss from "dtss";
+import * as lodash from "lodash";
 import { ICatch } from "../interfaces/catch";
 import { IYamlObject } from "../interfaces/yaml";
 
@@ -33,7 +34,7 @@ export const initCatchCache = (objs) => {
     }
     Object.keys(objs).forEach((name) => {
         const obj = objs[name];
-        catchCache[name] = Object.assign({ }, defaultCatchCacheObject);
+        catchCache[name] = lodash.merge({ }, defaultCatchCacheObject);
         Object.keys(catchCache[name])
             .forEach((key) => catchCache[name][key] = obj[key]);
     });
@@ -42,7 +43,7 @@ export const initCatchCache = (objs) => {
 
 export const addCatchCache = (name) => {
     if (!catchCache[name]) {
-        catchCache[name] = Object.assign({ }, defaultCatchCacheObject);
+        catchCache[name] = lodash.merge({ }, defaultCatchCacheObject);
     }
     return catchCache[name];
 };

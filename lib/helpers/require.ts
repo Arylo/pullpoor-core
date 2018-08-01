@@ -10,7 +10,7 @@ export const requireScript = (name: string) => {
     }
     const filepath = path.resolve(scriptsPath, `${name}.js`);
     if (!fs.existsSync(filepath)) {
-        throw new Error("Non-exist Script File");
+        throw new Error(`Non-exist Script File: ${name}`);
     } else {
         scriptCache[name] = true;
     }

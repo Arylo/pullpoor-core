@@ -2,6 +2,7 @@ import { URL } from "url";
 
 import cheerio = require("cheerio");
 import dtss = require("dtss");
+import lodash = require("lodash");
 import ua = require("random-useragent");
 import rp = require("request-promise");
 import { sleep } from "./sleep";
@@ -18,7 +19,7 @@ const getOptions = {
 let isFirstHtml = true;
 
 export const getHTML = async (url: string, opts?) => {
-    const options = Object.assign({ }, getOptions, {
+    const options = lodash.merge({ }, getOptions, {
         headers: {
             "Host": new URL(url).host,
             "Referer": url,
@@ -40,7 +41,7 @@ export const getHTML = async (url: string, opts?) => {
 let isFirstJson = true;
 
 export const getJSON = async (url: string, opts?) => {
-    const options = Object.assign({ }, getOptions, {
+    const options = lodash.merge({ }, getOptions, {
         headers: {
             "Host": new URL(url).host,
             "Referer": url,

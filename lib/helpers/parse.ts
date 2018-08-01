@@ -1,4 +1,5 @@
 import { PathLike } from "fs";
+import * as lodash from "lodash";
 import Config = require("y-config");
 import { IBaseScript } from "../interfaces/script";
 import { IYamlObject } from "../interfaces/yaml";
@@ -13,14 +14,14 @@ export const parse = (filepath: PathLike) => {
     // Extends Start
     if (bankObj.extends) {
         const baseBankObj = getBank(bankObj.extends);
-        bankObj = Object.assign({ }, baseBankObj, bankObj);
+        bankObj = lodash.merge({ }, baseBankObj, bankObj);
         if (baseBankObj.base) {
             delete baseBankObj.base;
         }
         delete baseBankObj.extends;
     } else if (bankObj.extends_file) {
         const baseBankObj = requireScript(bankObj.extends_file);
-        bankObj = Object.assign({ }, baseBankObj, bankObj);
+        bankObj = lodash.merge({ }, baseBankObj, bankObj);
         if (baseBankObj.base) {
             delete baseBankObj.base;
         }

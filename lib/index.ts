@@ -1,11 +1,14 @@
+import { flattenDeep } from "lodash";
 import * as path from "path";
 import { URL } from "url";
 import { getBanksList as getList, startCatch } from "./helpers/banks";
 import { rootPath } from "./helpers/constant";
 import { getJSON } from "./helpers/net";
+import store = require("./store");
 
 export { getBanksList } from "./helpers/banks";
 export { initCatchCache, getBankCache as getBank } from "./helpers/cache";
+export const { getNotes } = store;
 
 const getPackageObject = () => {
     const filePath = path.resolve(rootPath, "package.json");
@@ -22,14 +25,8 @@ export const remoteVersion = async () => {
 };
 
 export const catchNotes = async (name?: string | string[]) => {
-    const set = new Set<string>();
-    const names = name && typeof name === "string" ? [ name ] : name;
-    const list = !names || names.length === 0 ? getList() : names;
-    for (const bankName of list) {
-        const notes = await startCatch(bankName);
-        for (const note of notes) {
-            set.add(note);
-        }
-    }
-    return [...set];
+    const list =  !name ? getList() : Array.isArray(name) ? name : [name];
+    const notes = await Promise.all(list.map((bankName) => startCatch(bankName)))
+        .then((arr) => flattenDeep(arr));
+    return [...new Set(notes)];
 };

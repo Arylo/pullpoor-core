@@ -2,6 +2,7 @@ import * as cheerio from "cheerio";
 import * as fs from "fs";
 import * as md5 from "md5";
 import * as path from "path";
+import store = require("../store");
 import { addBankCache, hasCatchCache, isStartCatch, refreshCatchCache } from "./cache";
 import { configsPath, DEFAULT_EXPIREDAT } from "./constant";
 import { getHTML } from "./net";
@@ -11,7 +12,7 @@ import { retryFnAsync } from "./retryFn";
 export const getBank = (name: string) => {
     const filepath = path.resolve(configsPath, `${name}.yaml`);
     if (!fs.existsSync(filepath)) {
-        throw new Error("Non-exist Config File");
+        throw new Error(`Non-exist Config File: ${name}`);
     }
     const obj = parse(filepath);
     obj.name = obj.name ? obj.name : name;
@@ -39,7 +40,7 @@ export const getBanksList = () => {
 };
 
 export const startCatch = async (name: string) => {
-    const list: string[] = [ ];
+    let list: string[] = [ ];
     const bank = getBank(name);
 
     if (bank.skip || bank.base) {
@@ -96,5 +97,7 @@ export const startCatch = async (name: string) => {
             continue;
         }
     }
-    return [...new Set(list)];
+    list = [...new Set(list)];
+    store.clearOldNotes(name).addNotes(name, list);
+    return list;
 };
