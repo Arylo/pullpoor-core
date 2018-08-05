@@ -8,8 +8,9 @@ export const requireScript = (name: string) => {
     if (scriptCache[name]) {
         return require(path.resolve(scriptsPath, name));
     }
-    const filepath = path.resolve(scriptsPath, `${name}.js`);
-    if (!fs.existsSync(filepath)) {
+    const filePath = path.resolve(scriptsPath, `${name}.js`);
+    // istanbul ignore if
+    if (!fs.existsSync(filePath)) {
         throw new Error(`Non-exist Script File: ${name}`);
     } else {
         scriptCache[name] = true;

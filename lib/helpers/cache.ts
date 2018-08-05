@@ -1,10 +1,10 @@
 import * as dtss from "dtss";
 import * as lodash from "lodash";
-import { ICatch } from "../interfaces/catch";
 import { IYamlObject } from "../interfaces/yaml";
+import { ICatch, ICatchMap } from "./../interfaces/catch.d";
 
 const bankCache: { [name: string]: IYamlObject } = { };
-const catchCache: { [name: string]: ICatch } = { };
+const catchCache: ICatchMap = { };
 
 const defaultCatchCacheObject: ICatch = {
     hashes: { },
@@ -28,7 +28,7 @@ export const addBankCache = (name: string, obj: IYamlObject) => {
     return bankCache[name];
 };
 
-export const initCatchCache = (objs) => {
+export const initCatchCache = (objs: ICatchMap) => {
     if (Object.keys(catchCache).length !== 0) {
         throw new Error("Init Fail, Because it is running");
     }
@@ -36,7 +36,9 @@ export const initCatchCache = (objs) => {
         const obj = objs[name];
         catchCache[name] = lodash.merge({ }, defaultCatchCacheObject);
         Object.keys(catchCache[name])
-            .forEach((key) => catchCache[name][key] = obj[key]);
+            .forEach((key) => {
+                catchCache[name][key] = obj[key] || catchCache[name][key];
+            });
     });
     return true;
 };

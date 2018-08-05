@@ -1,6 +1,6 @@
 import test from "ava";
 import { resolve } from "path";
-import { catchNotes, initCatchCache } from "../../lib";
+import { catchNotes, init } from "../../lib";
 import * as constant from "../../lib/helpers/constant";
 import { sleep } from "../../lib/helpers/sleep";
 
@@ -10,7 +10,7 @@ test("getJSON with Old Cache", async (t) => {
 
     const field = "normal";
 
-    initCatchCache({
+    init({
         [field]: {
             hashes: {},
             latestUpdatedAt: Date.now(),

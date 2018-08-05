@@ -1,7 +1,7 @@
 import * as dtss from "dtss";
 import * as lodash from "lodash";
 import { getBanksList } from "./helpers/banks";
-import { IStore } from "./interfaces/store";
+import { IStore, IStoreMap } from "./interfaces/store.d";
 
 const DEADLINE_DATE = dtss.d(5);
 const DEFAULT_STORE: IStore = {
@@ -12,14 +12,29 @@ const DEFAULT_STORE: IStore = {
 // tslint:disable-next-line:new-parens
 export = new class {
 
-    private store: { [name: string]: IStore } = { };
+    private store: IStoreMap = { };
+
+    public init = (objs: IStoreMap) => {
+        if (Object.keys(this.store).length !== 0) {
+            throw new Error("Init Fail, Because it is running");
+        }
+        Object.keys(objs).forEach((name) => {
+            const obj = objs[name];
+            this.store[name] = lodash.merge({ }, DEFAULT_STORE);
+            Object.keys(this.store[name])
+                .forEach((key) => {
+                    this.store[name][key] = obj[key] || this.store[name][key];
+                });
+        });
+        return true;
+    }
 
     public clearOldNotes(name: string) {
         if (!this.store[name]) {
             return this;
         }
         const currentDate = Date.now();
-        const dateKeys = Object.keys(this.store[name].book)
+        const dateKeys = Object.keys(this.store[name].book || { })
             .map((date) => parseInt(date, 10))
             .filter((date) => currentDate >= date);
         const notes: string[] = [ ];
@@ -31,42 +46,43 @@ export = new class {
         return this;
     }
 
-    public addNotes(name: string, notes: string[]) {
+    public addNotes(name: string, noteIds: string[]) {
         if (!this.store[name]) {
             this.store[name] = lodash.merge({ }, DEFAULT_STORE);
         }
-        if (notes.length === 0) {
+        noteIds = lodash.difference(noteIds, this.getNotes(name));
+        if (noteIds.length === 0) {
             return this;
         }
         const currentDate = Date.now();
-        const deadline = Date.now() + DEADLINE_DATE;
-        for (const note of notes) {
-            if (this.store[name].notes[note]) {
-                continue;
-            }
-            this.store[name].notes[note] = currentDate + DEADLINE_DATE;
+        const deadline = currentDate + DEADLINE_DATE;
+        for (const noteId of noteIds) {
+            this.store[name].notes[noteId] = currentDate + DEADLINE_DATE;
             if (!this.store[name].book[`${deadline}`]) {
                 this.store[name].book[`${deadline}`] = [ ];
             }
-            this.store[name].book[`${deadline}`].push(note);
+            this.store[name].book[`${deadline}`].push(noteId);
         }
         return this;
     }
 
     public getNotes(name?: string) {
-        const list: string[] = [ ];
         if (name) {
             if (!this.store[name]) {
-                return list;
+                return [ ];
             }
-            for (const dateKey of Object.keys(this.store[name].book)) {
-                list.push(...this.store[name].book[dateKey]);
-            }
+            return Object.keys(this.store[name].notes);
         } else {
+            const list: string[] = [ ];
             for (const bankName of getBanksList()) {
                 list.push(...this.getNotes(bankName));
             }
+            return [...new Set(list)];
         }
-        return [...new Set(list)];
     }
+
+    public getStore(name: string) {
+        return this.store[name];
+    }
+
 };

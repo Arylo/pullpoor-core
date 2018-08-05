@@ -6,6 +6,10 @@ export interface ICatch {
     };
 }
 
+export interface ICatchMap {
+    [name: string]: ICatch;
+}
+
 export interface INotes extends ICatch {
     notes: string[];
     length: number;
