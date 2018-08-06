@@ -11,7 +11,10 @@ import store = require("./store");
 
 export { getBanksList } from "./helpers/banks";
 export { getBankCache as getBank } from "./helpers/cache";
-export const { getNotes } = store;
+
+export const getNotes = (...args) => {
+    return store.getNotes(...args);
+};
 
 const getPackageObject = () => {
     const filePath = path.resolve(rootPath, "package.json");

@@ -14,7 +14,7 @@ export = new class {
 
     private store: IStoreMap = { };
 
-    public init = (objs: IStoreMap) => {
+    public init(objs: IStoreMap) {
         if (Object.keys(this.store).length !== 0) {
             throw new Error("Init Fail, Because it is running");
         }
