@@ -37,7 +37,7 @@ export = new class {
         const dateKeys = Object.keys(this.store[name].book || { })
             .map((date) => parseInt(date, 10))
             .filter((date) => currentDate >= date);
-        const notes: string[] = [ ];
+
         for (const dateKey of dateKeys) {
             const ns = this.store[name].book[`${dateKey}`];
             ns.forEach((n) => delete this.store[name].notes[n]);

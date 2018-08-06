@@ -2,7 +2,7 @@ import * as dtss from "dtss";
 import findUp = require("find-up");
 import { dirname, resolve } from "path";
 
-export const rootPath = dirname(findUp.sync("package.json"));
+export const rootPath = dirname(findUp.sync("package.json", { cwd: __dirname }));
 export let configsPath = resolve(rootPath, "banks");
 export let scriptsPath = resolve(__dirname, "../scripts");
 
