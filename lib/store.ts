@@ -68,10 +68,11 @@ export = new class {
 
     public getNotes(name?: string) {
         if (name) {
-            if (!this.store[name]) {
-                return [ ];
+            try {
+                return Object.keys(this.store[name].notes);
+            } catch (error) {
+                return [];
             }
-            return Object.keys(this.store[name].notes);
         } else {
             const list: string[] = [ ];
             for (const bankName of getBanksList()) {
