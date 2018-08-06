@@ -2,11 +2,11 @@ import { flattenDeep, merge } from "lodash";
 import * as path from "path";
 import { URL } from "url";
 import { getBanksList as getList, startCatch } from "./helpers/banks";
-import { getBankCache, initCatchCache } from "./helpers/cache";
+import { getCatchCache, initCatchCache } from "./helpers/cache";
 import { rootPath } from "./helpers/constant";
 import { getJSON } from "./helpers/net";
-import { ICatchMap } from "./interfaces/catch.d";
-import { IStoreMap } from "./interfaces/store.d";
+import { ICatch, ICatchMap } from "./interfaces/catch.d";
+import { IStore, IStoreMap } from "./interfaces/store.d";
 import store = require("./store");
 
 export { getBanksList } from "./helpers/banks";
@@ -43,10 +43,20 @@ export const init = (objs: ICatchMap | IStoreMap) => {
 export const catchNotes = async (name?: string | string[]) => {
     const list =  !name ? getList() : Array.isArray(name) ? name : [name];
     const notes = await Promise.all(list.map((bankName) => startCatch(bankName)))
-        .then((arr) => flattenDeep(arr));
+        .then((arr) => flattenDeep(arr)) as string[];
     return [...new Set(notes)];
 };
 
-export const get = (name: string) => {
-    return merge({ }, getBankCache(name), store.getStore(name));
-};
+export function get(): ICatchMap & IStoreMap;
+export function get(name: string): ICatch & IStore;
+export function get(name?: string) {
+    if (!name) {
+        const obj: ICatchMap & IStoreMap = { };
+        for (const bank of getList()) {
+            obj[bank] = get(bank);
+        }
+        return obj;
+    } else {
+        return merge({ }, getCatchCache(name), store.getStore(name));
+    }
+}

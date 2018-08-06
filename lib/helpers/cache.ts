@@ -50,6 +50,10 @@ export const addCatchCache = (name) => {
     return catchCache[name];
 };
 
+export const getCatchCache = (name: string) => {
+    return catchCache[name];
+};
+
 export const refreshCatchCache = (name: string) => {
     catchCache[name].latestUpdatedAt = Date.now();
     catchCache[name].nextUpdatedAt =
