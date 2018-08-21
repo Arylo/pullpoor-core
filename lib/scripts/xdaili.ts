@@ -21,7 +21,7 @@ export = new class extends OldScript {
                 return res.RESULT.rows || [ ];
             }).then((arr) => {
                 return arr.map((item) => {
-                    return `http://${item.ip}:${item.port}`;
+                    return `http://${item.ip.trim()}:${item.port}`;
                 });
             });
     }

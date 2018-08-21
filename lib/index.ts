@@ -11,6 +11,7 @@ import store = require("./store");
 
 export { getBanksList } from "./helpers/banks";
 export { getBankCache as getBank } from "./helpers/cache";
+export { on, once } from "./event";
 
 export const getNotes = (...args) => {
     return store.getNotes(...args);

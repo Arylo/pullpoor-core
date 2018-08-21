@@ -21,13 +21,13 @@ export = new class extends OldScript {
             const tds = cheerio("td", tr);
 
             const texts = [2, 0]
-                .map((index) => tds.eq(index).html() as string)
+                .map((index) => tds.eq(index).html().trim())
                 .map((item, index) => {
                     if (index === 1) {
                         item = item.replace(reg, "");
                     }
                     const $ = cheerio.load(item) as any;
-                    return $.text();
+                    return $.text().trim();
                 });
             list.push(`${texts[0]}://${texts[1]}`);
         }

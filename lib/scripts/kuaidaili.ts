@@ -22,7 +22,7 @@ export = new class extends OldScript {
                 for (const tr of trs.toArray()) {
                     const tds = cheerio("td", tr);
                     const txts =
-                        [3, 0, 1].map((index) => tds.eq(index).text());
+                        [3, 0, 1].map((index) => tds.eq(index).text().trim());
                     const url =
                         `${txts[0].toLowerCase()}://${txts[1]}:${txts[2]}`;
                     list.push(url);

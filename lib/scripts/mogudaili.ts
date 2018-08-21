@@ -17,7 +17,7 @@ export = new class extends OldScript {
         return getJSON(addr)
             .then((data) => {
                 return (data.msg || [ ]).map((item) => {
-                    return `http://${item.ip}:${item.port}`;
+                    return `http://${item.ip.trim()}:${item.port}`;
                 });
             });
     }

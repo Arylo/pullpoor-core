@@ -30,7 +30,7 @@ export = new class extends OldScript {
             .then((html) => {
                 return html
                     .match(/(\d+\.){3}\d+:\d+(?!:<br>)/gi)
-                    .map((item) => item.toString())
+                    .map((item) => item.toString().trim())
                     .map((item) => `http://${item}`);
             });
     }

@@ -33,7 +33,7 @@ export = new class extends OldScript {
                         continue;
                     }
                     const texts =
-                        [5, 1, 2].map((index) => tds.eq(index).text());
+                        [5, 1, 2].map((index) => tds.eq(index).text().trim());
                     const url =
                         `${texts[0].toLowerCase()}://${texts[1]}:${texts[2]}`;
                     list.push(url);

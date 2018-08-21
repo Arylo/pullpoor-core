@@ -23,7 +23,7 @@ export = new class extends OldScript {
                 const tr = trs.eq(j);
                 const tds = cheerio("td", tr);
                 const texts =
-                    [0, 1].map((index) => tds.eq(index).text());
+                    [0, 1].map((index) => tds.eq(index).text().trim());
                 const url = `${protocol}://${texts[0]}:${texts[1]}`;
                 list.push(url);
             }

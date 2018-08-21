@@ -19,7 +19,7 @@ export = new class extends OldScript {
                 for (const tr of trs.toArray()) {
                     const tds = cheerio("td", tr);
                     const texts =
-                        [0, 1].map((index) => tds.eq(index).text());
+                        [0, 1].map((index) => tds.eq(index).text().trim());
                     const url = `http://${texts[0]}:${texts[1]}`;
                     list.push(url);
                 }

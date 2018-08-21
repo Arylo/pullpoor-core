@@ -23,7 +23,7 @@ export = new class extends CatchCacheScript implements IBaseGetAddressScript {
         return elePromise.then((trs) => {
             for (const tr of trs.toArray()) {
                 const tds = cheerio("td", tr);
-                const texts = [3, 0, 1].map((index) => tds.eq(index).text());
+                const texts = [3, 0, 1].map((index) => tds.eq(index).text().trim());
                 const url =
                     `${texts[0].toLowerCase()}://${texts[1]}:${texts[2]}`;
                 list.push(url);
