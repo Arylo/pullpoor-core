@@ -5,8 +5,8 @@ import { getBanksList as getList, startCatch } from "./helpers/banks";
 import { getCatchCache, initCatchCache } from "./helpers/cache";
 import { rootPath } from "./helpers/constant";
 import { getJSON } from "./helpers/net";
-import { ICatch, ICatchMap } from "./interfaces/catch.d";
-import { IStore, IStoreMap } from "./interfaces/store.d";
+import { ICatch, ICatchMap } from "./interfaces/catch";
+import { IStore, IStoreMap } from "./interfaces/store";
 import store = require("./store");
 
 export { getBanksList } from "./helpers/banks";

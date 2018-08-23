@@ -1,7 +1,7 @@
 import * as dtss from "dtss";
 import * as lodash from "lodash";
 import { getBanksList } from "./helpers/banks";
-import { IStore, IStoreMap } from "./interfaces/store.d";
+import { IStore, IStoreMap } from "./interfaces/store";
 
 const DEADLINE_DATE = dtss.d(5);
 const DEFAULT_STORE: IStore = {

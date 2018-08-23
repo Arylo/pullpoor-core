@@ -11,6 +11,7 @@ before_script:
 
 script:
   - "npm run build"
+  - "npm run lint"
   - "nyc npm test"
 
 after_success:

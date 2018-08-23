@@ -1,7 +1,7 @@
 import * as dtss from "dtss";
 import * as lodash from "lodash";
+import { ICatch, ICatchMap } from "../interfaces/catch";
 import { IYamlObject } from "../interfaces/yaml";
-import { ICatch, ICatchMap } from "./../interfaces/catch.d";
 
 const bankCache: { [name: string]: IYamlObject } = { };
 const catchCache: ICatchMap = { };

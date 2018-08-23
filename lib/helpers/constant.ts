@@ -18,4 +18,4 @@ export const setValue = (key: "configsPath" | "scriptsPath", val: string) => {
     return true;
 };
 
-export const DEFAULT_EXPIREDAT = dtss.s(5);
+export const DEFAULT_EXPIREDAT = dtss.m(30);
